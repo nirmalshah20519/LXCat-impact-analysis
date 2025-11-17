@@ -16,7 +16,7 @@ def run_pipeline():
         raw_txt_folder="documents/txts/",
         cleaned_txt_folder="documents/cleaned_txts/",
         intermediate_folder="documents/intermediate/",
-        manually_resolved_csv="documents/manually_resolved_species.csv",
+        manually_resolved_csv="documents/manually_resolved_chem_db.csv",
         summary_csv="documents/summary/species_summary.csv",
         lxcat_csv="data/lxcat_gases.csv",
         lxcat_out_csv="documents/summary/lxcat_filtered_species.csv")
