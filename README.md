@@ -1,4 +1,4 @@
-# A Comprehensive Knowledge Mining Pipeline for Extracting Domain Insights from LXCat-Cited Plasma Research Literature
+# Assessing the impact of Open Research Information Infrastructures using NLP driven full-text Scientometrics: A case study of the LXCat open-access platform
 
 A robust, open-source Natural Language Processing (NLP) pipeline designed to extract real-world usage patterns of species, databases, and solvers from the full-text content of scientific literature citing the foundational LXCat papers. This project moves beyond traditional bibliometrics to provide deep, content-specific scientometric insights, quantifying the scientific impact of the Low-Temperature Plasma (LTP) community's data-sharing efforts. The pipeline automatically converts scientific PDFs to structured data, enabling researchers to analyze large document collections and generate actionable insights and trends.
 
@@ -109,10 +109,38 @@ If you prefer to run steps individually, open main.py and call the specific modu
 
 ---
 
+## 📖 How to Cite
+
+If you use this repository, methodology, extracted datasets, or results in your research, please cite the present GitHub project together with the abstract presented at the **APS Global Engineering Conference (GEC) 2025**.
+
+This repository supports a research study on large-scale knowledge mining of LXCat-cited plasma literature and is intended to enable transparency, reproducibility, and extension of the presented analysis.
+
+Once the full paper is officially published, this section will be updated with the final bibliographic reference.
+
+---
+
+### Temporary citation (GEC 2025 abstract – poster presentation)
+
+**Conference abstract link:**  
+https://schedule.aps.org/gec/2025/events/DT4/1
+
+---
+
+### BibTeX
+
+```bibtex
+@misc{LXCatImpactAnalysis2025,
+  title        = {Uncovering and Analyzing the Scientific Impact of LXCat in Low-Temperature Plasma (LTP) Research: An NLP and Data-Driven Approach},
+  author       = {Kalp Pandya, Khushi Shah, Nakshi Shah, Nirmal Shah, Bhaskar Chaudhury},
+  howpublished = {\url{https://github.com/USERNAME/LXCat-impact-analysis}},
+  note         = {Poster presented at the APS Global Engineering Conference (GEC) 2025},
+  year         = {2025},
+  url          = {https://schedule.aps.org/gec/2025/events/DT4/1}
+}
+
 ## ✍️ Development Notes
 
 * `main.py` orchestrates the five high-level steps; each task is delegated to a function within one of the six `utils/*.py` modules.
-
 
 ---
 
