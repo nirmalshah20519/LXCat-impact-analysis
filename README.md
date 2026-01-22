@@ -1,1 +1,0 @@
-# LXCat-impact-analysis
