@@ -58,16 +58,16 @@ def run_pipeline():
         md_folder="documents/mds/"
     )
 
-    # # Step 2: Md cleaning
+    # Step 2: Md cleaning
     process_md_folders("documents/sample_mds/", "documents/cleaned_mds/")
     
-    # # Step 3: Convert MDs to TXTs
+    # Step 3: Convert MDs to TXTs
     batch_convert_md_folder(
         input_root="documents/cleaned_mds/",
         output_root="documents/txts/"
     )
 
-    Step 4: Database Extraction Pipeline
+    # Step 4: Database Extraction Pipeline
     db_processor(
         txt_input_dir="documents/txts/",
         output_csv="results/data/Database_counts.csv"
