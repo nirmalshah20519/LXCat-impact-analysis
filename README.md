@@ -125,7 +125,41 @@ Once the full paper is officially published, this section will be updated with t
 
 ---
 
+<<<<<<< HEAD
 ### Temporary citation (GEC 2025 abstract – poster presentation)
+=======
+## 📖 How to Cite
+
+If you use this repository, methodology, extracted datasets, or results in your research, please cite the present GitHub project together with the abstract presented at the **APS Global Engineering Conference (GEC) 2025**.
+
+This repository supports a research study on large-scale knowledge mining of LXCat-cited plasma literature and is intended to enable transparency, reproducibility, and extension of the presented analysis.
+
+Once the full paper is officially published, this section will be updated with the final bibliographic reference.
+
+---
+
+### Temporary citation (GEC 2025 abstract – poster presentation)
+
+**Conference abstract link:**  
+https://schedule.aps.org/gec/2025/events/DT4/1
+
+---
+
+### BibTeX
+
+```bibtex
+@misc{LXCatImpactAnalysis2025,
+  title        = {Impact Analysis of LXCat Electron Collision Databases on Plasma Modeling},
+  author       = {Kalp Pandya, Khushi Shah, Nirmal Shah, Nakshi Shah, Bhaskar Chaudhury},
+  howpublished = {\url{https://github.com/USERNAME/LXCat-impact-analysis}},
+  note         = {Poster presented at the APS Global Engineering Conference (GEC) 2025},
+  year         = {2025},
+  url          = {https://schedule.aps.org/gec/2025/events/DT4/1}
+}
+
+
+<!-- ## License & Contribution
+>>>>>>> Updated README file
 
 **Conference abstract link:**  
 https://schedule.aps.org/gec/2025/events/DT4/1
