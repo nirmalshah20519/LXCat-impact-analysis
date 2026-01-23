@@ -3,7 +3,7 @@ import shutil
 import pandas as pd
 import os
 import zipfile
-from utils.pdf_to_json_and_md_conversion import run_full_pipeline
+from utils.pdf_to_json_and_md_conversion import convert_pdfs_serial
 from utils.md_cleaning import process_md_folders
 from utils.md_to_txt_conversion import batch_convert_md_folder
 from utils.database_extraction_pipeline import db_processor
@@ -15,7 +15,7 @@ def write_to_results_excel(sheet_name, dataframe, output_dir="results/data",
                            keep_csv=True, csv_path=None):
     """
     Writes a dataframe into results.xlsx (append sheet).
-    Optionally deletes the original CSV (no zip).
+    Optionally deletes the original CSV.
     """
 
     # Ensure results folder exists
@@ -52,14 +52,14 @@ def write_to_results_excel(sheet_name, dataframe, output_dir="results/data",
 def run_pipeline():
 
     # Step 1: Convert PDF to MD and JSON
-    run_full_pipeline(
-        pdf_folder="documents/pdfs/",
+    convert_pdfs_serial(
+        pdf_folder="/home/student/Kalp/SELC_Projects/LxCat_Analysis/Github_cloned/Final_Files/documents/pdfs/",
         json_folder="documents/jsons/",
         md_folder="documents/mds/"
     )
 
     # Step 2: Md cleaning
-    process_md_folders("documents/mds/", "documents/cleaned_mds/")
+    process_md_folders("documents/sample_mds/", "documents/cleaned_mds/")
     
     # Step 3: Convert MDs to TXTs
     batch_convert_md_folder(
@@ -104,7 +104,7 @@ def run_pipeline():
 
     # Step 8: Store results
 
-    # Store species result
+    # 8.1: Store species extraction result
     gas_csv = "results/data/final_lxcat_species.csv"
     gas_df = pd.read_csv(gas_csv)
     write_to_results_excel(
@@ -114,7 +114,7 @@ def run_pipeline():
         csv_path=gas_csv
     )
 
-    # Store database result
+    # 8.2: Store database extraction result
     db_csv = "results/data/Database_counts.csv"
     db_df = pd.read_csv(db_csv)
     write_to_results_excel(
@@ -124,7 +124,7 @@ def run_pipeline():
         csv_path=db_csv
     )
 
-    # Store bolsig+ result
+    # 8.3: Store bolsig+ extraction result
     bs_csv = "results/data/bolsig+_counts.csv"
     bs_df = pd.read_csv(bs_csv)
     write_to_results_excel(
@@ -134,6 +134,7 @@ def run_pipeline():
         csv_path=bs_csv
     )
 
+    # 8.4: Store country fetching result
     ct_csv = "results/data/country_fetch_outputs.csv"
     ct_df = pd.read_csv(ct_csv)
     write_to_results_excel(

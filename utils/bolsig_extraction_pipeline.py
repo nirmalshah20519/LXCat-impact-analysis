@@ -159,5 +159,5 @@ def bolsig_processor(txt_input_dir, output_csv):
         except Exception as e:
             print(f"❌ Error processing {filename}: {e}")
 
-    print("\nBOLSIG+ Extraction Pipeline Completed Successfully!")
+    print("All bolsig+ counts stored in csv!!")
 

@@ -7,3 +7,4 @@ matplotlib
 pycountry
 beautifulsoup4
 openpyxl
+pynvml

@@ -230,4 +230,4 @@ def db_processor(txt_input_dir, output_csv):
 
         except Exception as e:
             print(f"❌ Error processing {filename}: {e}")
-    print("Database Extraction Pipeline Completed Successfully!")
+    print("All Database Counts are stored in csv!!")

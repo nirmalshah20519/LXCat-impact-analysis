@@ -38,23 +38,45 @@ def filter_markdown(input_filepath, output_filepath):
     print(f"✔ Cleaned: {input_filepath} → {output_filepath}")
 
 
+# def process_md_folders(root_folder, output_folder):
+#     """
+#     Process all subfolders inside root_folder.
+#     Write ALL cleaned files into output_folder (flat folder).
+#     """
+
+#     root = Path(root_folder)
+#     out_root = Path(output_folder)
+#     out_root.mkdir(parents=True, exist_ok=True)
+
+#     for sub in root.iterdir():
+#         if not sub.is_dir():
+#             continue
+
+#         md_path = sub / f"{sub.name}.md"
+#         if md_path.exists():
+#             out_path = out_root / f"{sub.name}_cleaned.md"
+#             filter_markdown(md_path, out_path)
+#         else:
+#             print(f"⚠ No markdown file: {md_path}")
+
 def process_md_folders(root_folder, output_folder):
     """
-    Process all subfolders inside root_folder.
-    Write ALL cleaned files into output_folder (flat folder).
+    Process all Markdown files directly inside root_folder
+    and write cleaned files to output_folder.
     """
 
     root = Path(root_folder)
     out_root = Path(output_folder)
     out_root.mkdir(parents=True, exist_ok=True)
 
-    for sub in root.iterdir():
-        if not sub.is_dir():
-            continue
+    md_files = list(root.glob("*.md"))
 
-        md_path = sub / f"{sub.name}.md"
-        if md_path.exists():
-            out_path = out_root / f"{sub.name}_cleaned.md"
-            filter_markdown(md_path, out_path)
-        else:
-            print(f"⚠ No markdown file: {md_path}")
+    if not md_files:
+        print(f"⚠ No markdown files found in {root_folder}")
+        return
+
+    print(f"🧹 Cleaning {len(md_files)} markdown files...")
+
+    for md_path in md_files:
+        out_path = out_root / f"{md_path.stem}_cleaned.md"
+        filter_markdown(md_path, out_path)

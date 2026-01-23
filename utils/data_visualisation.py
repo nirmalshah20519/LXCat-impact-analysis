@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import ast
 import re
+from matplotlib.ticker import MaxNLocator
 
 PLOTS_DIR = "results/plots/"
 
@@ -185,6 +186,7 @@ def plot_top_gases():
         edgecolor="black",
         linewidth=1.5
     )
+    plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
 
     plt.title("Top 10 Species", fontsize=18)
     plt.xlabel("Species", fontsize=16)
@@ -225,6 +227,7 @@ def plot_top_databases():
         edgecolor="black",
         linewidth=1.5
     )
+    plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
 
     plt.title("Top 10 Databases", fontsize=18)
     plt.xlabel("Database", fontsize=16)
@@ -273,6 +276,7 @@ def plot_top_countries():
         edgecolor="black",
         linewidth=1.5
     )
+    plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
 
     plt.title("Top 10 Countries", fontsize=18)
     plt.xlabel("Country", fontsize=16)
