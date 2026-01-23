@@ -92,7 +92,7 @@ If you prefer to run steps individually, open main.py and call the specific modu
 
 | **Directory / File**              | **Content Type**         | **Description** |
 |----------------------------------|---------------------------|-----------------|
-| `data/md/`                        | *Raw Markdown*            | Markdown generated directly from PDFs. |
+| `data/mds/`                        | *Raw Markdown*            | Markdown generated directly from PDFs. |
 | `data/jsons/`                     | *Structured JSON*         | JSON files preserving structural metadata. |
 | `data/txts/`                      | *Cleaned Plain Text*      | Final plain-text used for NLP extraction. |
 | `results/data/results.xlsx`       | *Final Dataset*           | Consolidated spreadsheet containing all extracted entities (species, databases, BOLSIG+, countries). |
@@ -137,20 +137,3 @@ https://schedule.aps.org/gec/2025/events/DT4/1
   year         = {2025},
   url          = {https://schedule.aps.org/gec/2025/events/DT4/1}
 }
-
-## ✍️ Development Notes
-
-* `main.py` orchestrates the five high-level steps; each task is delegated to a function within one of the six `utils/*.py` modules.
-
----
-
-<!-- ## License & Contribution
-
-* Add a `LICENSE` file with your preferred license (MIT, Apache-2.0, etc.).
-* To contribute: fork the repo, create a feature branch, open a PR with tests and a short description of changes. -->
-
----
-
-<!-- ## Contact
-
-If you want help customizing the README, making example `requirements.txt`, or adding a `Dockerfile`/`Makefile` for easier runs, tell me what to include and I will update the README accordingly. -->
