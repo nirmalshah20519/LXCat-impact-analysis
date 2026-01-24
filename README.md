@@ -27,6 +27,12 @@ pip install -r requirements_main.txt
 
 2. Create Gas TM environment
 
+Install mamba
+
+```bash
+conda install -n base -c conda-forge mamba
+```
+
 ```bash
 mamba create -n lxcat_cde python=3.9
 mamba activate lxcat_cde
