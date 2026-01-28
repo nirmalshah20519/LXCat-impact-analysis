@@ -38,7 +38,7 @@ mamba create -n lxcat_cde python=3.9
 mamba activate lxcat_cde
 
 pip install chemdataextractor
-pip install -r cde_requirements.txt  
+pip install -r requirements_cde.txt  
 ```
 
 ## 🔎 What This Pipeline Does
