@@ -53,7 +53,7 @@ def run_pipeline():
 
     # Step 1: Convert PDF to MD and JSON
     convert_pdfs_serial(
-        pdf_folder="/home/student/Kalp/SELC_Projects/LxCat_Analysis/Github_cloned/Final_Files/documents/pdfs/",
+        pdf_folder="documents/pdfs/",
         json_folder="documents/jsons/",
         md_folder="documents/mds/"
     )
