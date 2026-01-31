@@ -59,7 +59,7 @@ def run_pipeline():
     )
 
     # Step 2: Md cleaning
-    process_md_folders("documents/sample_mds/", "documents/cleaned_mds/")
+    process_md_folders("documents/mds/", "documents/cleaned_mds/")
     
     # Step 3: Convert MDs to TXTs
     batch_convert_md_folder(

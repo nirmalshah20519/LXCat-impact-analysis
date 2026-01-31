@@ -90,19 +90,3 @@ def convert_pdfs_serial(pdf_folder, json_folder, md_folder):
         json_md_worker(pdf_path, json_path, md_path)
 
     print("\n===== Serial PDF conversion completed =====\n")
-
-# ======================================================================
-# MAIN
-# ======================================================================
-
-# def main():
-#     print("CUDA devices available:", torch.cuda.device_count())
-
-#     convert_pdfs_serial(
-#         pdf_folder="/home/student/Kalp/SELC_Projects/LxCat_Analysis/Github_cloned/Final_Files/documents/pdfs/",
-#         json_folder="/home/student/Kalp/SELC_Projects/LxCat_Analysis/Github_cloned/Final_Files/documents/jsons_kalp2/",
-#         md_folder="/home/student/Kalp/SELC_Projects/LxCat_Analysis/Github_cloned/Final_Files/documents/mds_kalp2/",
-#     )
-
-# if __name__ == "__main__":
-#     main()

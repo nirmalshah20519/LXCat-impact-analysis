@@ -24,10 +24,8 @@ def extract_and_count_from_bytes(text_bytes: bytes) -> Counter:
     Uses Document.from_string (preferred in CDE v2).
     """
     # Use from_string to construct a Document from bytes (v2 API)
-    # doc = Document.from_string(text_bytes)
     doc = Document(text_bytes.decode("utf-8", errors="ignore"))
 
-    # doc.cems returns Span-like objects; .text is the chemical string
     names = (c.text.strip() for c in doc.cems if getattr(c, "text", "").strip())
     return Counter(names)
 
@@ -51,7 +49,6 @@ def process_all_txts(in_folder: str, out_root: str):
 
         text_bytes = read_text_as_bytes(txt_path)
         counter = extract_and_count_from_bytes(text_bytes)
-        # print("[DEBUG] CDE raw species:", counter["CO2"])
 
         outpath = folder / f"{file_id}_raw_chem_counts.txt"
         with open(outpath, "w", encoding="utf-8") as f:
@@ -104,10 +101,6 @@ JUNK_WORDS = {
 
 def is_junk(term: str) -> bool:
     return term.upper() in JUNK_WORDS
-
-
-# def looks_like_formula(term: str) -> bool:
-#     return bool(re.fullmatch(r'[A-Z][A-Za-z0-9]*', term))
 
 def looks_like_formula(term):
     # Accept multi-word chemical names
