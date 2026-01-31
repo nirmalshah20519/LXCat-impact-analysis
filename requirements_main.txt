@@ -1,0 +1,10 @@
+pandas
+torch
+marker-pdf
+pypandoc
+psutil
+matplotlib
+pycountry
+beautifulsoup4
+openpyxl
+nvidia-ml-py>=12.0,<13.0
