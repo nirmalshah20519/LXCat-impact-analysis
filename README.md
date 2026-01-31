@@ -76,6 +76,16 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
 
 ---
 
+## 📊 Results
+
+The pipeline generates content-specific scientometric insights from LXCat-cited full-text papers, including the most frequently mentioned chemical species, LXCat databases, and author-affiliation countries. All extracted entities are aggregated into `results/data/results.xlsx`, and summary visualizations are saved in `results/plots/`.
+
+<p align="center">
+  <img src="results/plots/top10_countries.png" alt="Top 10 Countries" width="32%"/>
+  <img src="results/plots/top10_databases.png" alt="Top 10 LXCat Databases" width="32%"/>
+  <img src="results/plots/top10_species.png" alt="Top 10 Chemical Species" width="32%"/>
+</p>
+
 ## ⚙️ How to Run
 
 1. Prepare input PDFs:
