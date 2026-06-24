@@ -1,0 +1,180 @@
+species_id,root_name,synonyms
+SP0001,"(1r)1{[(4'methoxy1,1'biphenyl4yl)sulfonyl]amino}2methylpropylphosphonic acid",fin
+SP0002,15–17,
+SP0003,afluon,MGF2
+SP0004,aluminum,al
+SP0005,aluminum oxide,AL2O3
+SP0006,aminoacid,AMINOACID
+SP0007,ammonia,ND3;NH3
+SP0008,ammoniaadd.amd,AMMONIAADD.AMD
+SP0009,argon,ar
+SP0010,"atomic
+oxygen","ATOMIC
+OXYGEN"
+SP0011,atomic oxygen,o
+SP0012,ax,AX
+SP0013,azanide,NH2
+SP0014,b-dot and d-dot,
+SP0015,barium,
+SP0016,bologna 40123,
+SP0017,carbon,c;diamond;graphene
+SP0018,carbon dioxide,CO2
+SP0019,carbon monoxide,exhaust gas
+SP0020,carbon tetrafluoride,CF4
+SP0021,carbonyl sulfide,ocs
+SP0022,carboxyl,
+SP0023,cedex,
+SP0024,chloride,cl
+SP0025,cnes,
+SP0026,cobalt,co
+SP0027,copper,
+SP0028,crf2001nfri,CRF2001NFRI
+SP0029,csic,
+SP0030,csiro,
+SP0031,c–d,C–D
+SP0032,"d-dot
+and b-dot",
+SP0033,"d-dot and
+b-dot",
+SP0034,d-dot and b-dot,
+SP0035,daejeon 34134,
+SP0036,dh340t25u03,DH340T25U03
+SP0037,diamonds,
+SP0038,double green,light green
+SP0039,dysprosium,dy
+SP0040,e- h,
+SP0041,e- o,
+SP0042,earth67p,EARTH67P
+SP0043,eirene,
+SP0044,eisen(iii)oxid,light red
+SP0045,enlil,
+SP0046,ep,
+SP0047,ethanol,s s
+SP0048,ether.fr,ETHER.FR
+SP0049,ethinylestradiol & norethisterone,zoran
+SP0050,ethylene,
+SP0051,e−,E−
+SP0052,fluoride,f
+SP0053,fluorocarbons,
+SP0054,fluoromethane,fluorocarbon
+SP0055,fulcher,
+SP0056,g s oehrlein26,
+SP0057,geltman 1973,
+SP0058,germanium,ge
+SP0059,goetz 2019,
+SP0060,grapheme,
+SP0061,h2ofast,H2OFAST
+SP0062,halodrol,halo
+SP0063,halogen,
+SP0064,haloperidol,aldo
+SP0065,helium,he
+SP0066,holmium,ho
+SP0067,hydrocarbons,
+SP0068,hydrochloric acid,hcl
+SP0069,hydrogen,H2;atomic hydrogen;h
+SP0070,hydrogen cyanide,hcn
+SP0071,hydrogen peroxide,H2O2
+SP0072,hydrogen sulfide,H2S
+SP0073,hydrogenimpact,HYDROGENIMPACT
+SP0074,hydroxide,oh
+SP0075,imidogen,nh
+SP0076,indolene,gasoline
+SP0077,iron,fe
+SP0078,j.d,J.D
+SP0079,k.e.m,K.E.M
+SP0080,kraichnan 1965,
+SP0081,lglutamic acid,e
+SP0082,lithium,li
+SP0083,madrid [10–12],
+SP0084,magenta,
+SP0085,magnesium,mg
+SP0086,mann 2017,
+SP0087,maven,
+SP0088,"measurement,(4)","MEASUREMENT,(4)"
+SP0089,mercury,hg
+SP0090,metal oxide,
+SP0091,metal oxides,
+SP0092,methane,CH4
+SP0093,methanol,CH3OH
+SP0094,methapyrilene hydrochloride,blue line
+SP0095,milton,
+SP0096,mk7 6aa,
+SP0097,"molten
+tin","MOLTEN
+TIN"
+SP0098,n(2d),N(2D)
+SP0099,n2(a),N2(A)
+SP0100,n2(a’),N2(A’)
+SP0101,na,
+SP0102,"nagoya
+4648603","NAGOYA
+4648603"
+SP0103,narbonne,
+SP0104,neon,ne
+SP0105,nhx,
+SP0106,nightside,
+SP0107,"nitric
+oxide","NITRIC
+OXIDE"
+SP0108,nitric oxide,no
+SP0109,nitrogen,N2;n
+SP0110,nj 08543,
+SP0111,noble gases,
+SP0112,o i,
+SP0113,"o i
+1304",
+SP0114,o i 1356,
+SP0115,o i 6300 å,
+SP0116,o sakai31,
+SP0117,o(777),O(777)
+SP0118,oh 43210,
+SP0119,oxygen,O2
+SP0120,ozone,O3
+SP0121,perhydroxyl radical,HO2
+SP0122,phencyclidine,selma
+SP0123,phidrates,
+SP0124,pic,
+SP0125,primary amines,
+SP0126,qth,
+SP0127,r − rc,
+SP0128,red,
+SP0129,richter,
+SP0130,s 81312,
+SP0131,s d,
+SP0132,s hamaguchi13,
+SP0133,s mazouffre19,
+SP0134,s rauf30,
+SP0135,s samukawa32,
+SP0136,saccharides,
+SP0137,silicon,si
+SP0138,silicon dioxide,SIO2
+SP0139,silicon nitride,SI3N4
+SP0140,sodium,
+SP0141,sodium chloride,nacl
+SP0142,sonnenfroh,
+SP0143,sulphides,
+SP0144,suncometline,SUNCOMETLINE
+SP0145,supertah,zinc oxide
+SP0146,tantalum,ta
+SP0147,tcs,
+SP0148,te ti,
+SP0149,tellurium,te
+SP0150,terahertz,
+SP0151,thiobencarb,saturn
+SP0152,thrusters,
+SP0153,tin,
+SP0154,titanium,ti
+SP0155,titanium dioxide,TIO2
+SP0156,tn280,TN280
+SP0157,trifluoromethyl radical,CF3
+SP0158,tritium,
+SP0159,tungsten,
+SP0160,umr7648,UMR7648
+SP0161,verigin 1991,
+SP0162,versolato 2019,
+SP0163,water,H2O
+SP0164,xenon,
+SP0165,yongin 16882,
+SP0166,zipf 1973,
+SP0167,− no2,
+SP0168,− no3,

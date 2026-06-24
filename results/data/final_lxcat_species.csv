@@ -1,0 +1,6 @@
+filename,lxcat_gases_count
+100_cleaned.txt,"{'carbon dioxide': 22, 'oxygen': 14, 'hydrogen': 6, 'carbon': 6, 'hydroxide': 5, 'helium': 3, 'nitrogen': 3, 'methanol': 2, 'methane': 2, 'sodium': 1, 'neon': 1}"
+10_cleaned.txt,"{'hydrogen': 24, 'hydroxide': 3, 'nitrogen': 2, 'carbon dioxide': 1, 'hydrogen peroxide': 1, 'oxygen': 1}"
+200_cleaned.txt,"{'nitrogen': 16, 'argon': 14, 'oxygen': 14, 'carbon': 11, 'silicon': 10, 'carbon dioxide': 9, 'helium': 8, 'ozone': 6, 'hydrogen': 5, 'methane': 5, 'nitric oxide': 2, 'hydrogen peroxide': 2, 'xenon': 2, 'hydroxide': 2, 'trifluoromethyl radical': 2, 'mercury': 2, 'fluoride': 1, 'magnesium': 1, 'perhydroxyl radical': 1, 'methanol': 1, 'copper': 1, 'chloride': 1}"
+300_cleaned.txt,"{'nitrogen': 51, 'hydrogen': 14, 'neon': 1, 'helium': 1, 'azanide': 1}"
+400_cleaned.txt,"{'argon': 2, 'carbon': 1, 'silicon': 1, 'fluoromethane': 1}"
