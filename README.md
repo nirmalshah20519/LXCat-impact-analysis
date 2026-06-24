@@ -42,10 +42,7 @@ mamba create -n lxcat_cde python=3.9
 mamba activate lxcat_cde
 cde data download
 
-<<<<<<< HEAD
-=======
 pip install chemdataextractor
->>>>>>> Generalize species extraction pipeline for multiple domains
 pip install -r requirements_cde.txt  
 ```
 
@@ -68,17 +65,13 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
 
 4. **Information Extraction From Text**
 
-* From the cleaned text files in `data/txts/`, the pipeline automatically extracts key scientific information:
+* From the cleaned text files, the pipeline automatically extracts key scientific information:
   * **Domain-Specific Entity Extraction**
     * **Chemical Domains:** ChemDataExtractor-based entity recognition with synonym and abbreviation resolution.
     * **Non-Chemical Domains:** Catalog-driven entity extraction using configurable root-name and synonym mappings.
   * **LXCat Database Mention Extraction** through rule-based NLP.
   * **BOLSIG+ Solver Usage Counting** at the sentence level.
-  * **Country and Affiliation Extraction** from publication metadata.
-
-4. **JSONs → Country fetching**
-
-   * The structural JSON outputs are parsed to reliably extract author affiliation and country information (using pycountry).
+  * **Country Fetchingn** from  structural JSON outputs.
 
 5. **Final aggregation and results**
 
@@ -87,7 +80,7 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
 
 ---
 
-4. **Domain Generalization**
+## Domain Generalization
 
 * The species extraction framework supports two operating modes:
 
@@ -144,10 +137,31 @@ If you prefer to run steps individually, open main.py and call the specific modu
 
 ## 🛠️ Configuration & Customization
 
-* Paths: You can change input/output paths by editing the path variables in `main.py`.
+* **Paths:** Input and output directories can be customized by modifying the path variables in `main.py`.
 
-* Domain Adaptation: To adapt this pipeline for a different scientific domain (e.g., biology), you would primarily need to update the entity recognition and keyword lists used in the `utils/` modules (e.g., swapping ChemDataExtractor usage for a biology-specific entity recognizer).
+* **Domain Adaptation:** The pipeline supports both chemical and non-chemical domains.
 
+  * For **chemical domains**, ChemDataExtractor (CDE) is used for context-aware entity recognition and synonym resolution.
+  * For **non-chemical domains**, users can provide their own domain catalog containing canonical entity names and associated synonyms/abbreviations.
+
+* **Custom Domain Catalogs:** During execution, the species extraction stage can prompt the user to either:
+
+  * Use the default species catalog generated from the dataset, or
+  * Provide a custom domain catalog CSV.
+
+* **Entity Catalog Format:** Custom catalogs should contain canonical entity names (`root_name`) along with their associated synonyms, abbreviations, or alternate forms. This enables the same extraction and counting workflow to be reused across different scientific disciplines without modifying the core pipeline logic.
+
+---
+
+## 📊 Results
+
+The pipeline generates content-specific scientometric insights from LXCat-cited full-text papers, including the most frequently mentioned chemical species, LXCat databases, and author-affiliation countries. All extracted entities are aggregated into `results/data/results.xlsx`, and summary visualizations are saved in `results/plots/`.
+
+<p align="center">
+  <img src="results/plots/top10_countries.png" alt="Top 10 Countries" width="32%"/>
+  <img src="results/plots/top10_databases.png" alt="Top 10 LXCat Databases" width="32%"/>
+  <img src="results/plots/top10_species.png" alt="Top 10 Chemical Species" width="32%"/>
+</p>
 
 ---
 
@@ -161,41 +175,7 @@ Once the full paper is officially published, this section will be updated with t
 
 ---
 
-<<<<<<< HEAD
 ### Temporary citation (GEC 2025 abstract – poster presentation)
-=======
-## 📖 How to Cite
-
-If you use this repository, methodology, extracted datasets, or results in your research, please cite the present GitHub project together with the abstract presented at the **APS Global Engineering Conference (GEC) 2025**.
-
-This repository supports a research study on large-scale knowledge mining of LXCat-cited plasma literature and is intended to enable transparency, reproducibility, and extension of the presented analysis.
-
-Once the full paper is officially published, this section will be updated with the final bibliographic reference.
-
----
-
-### Temporary citation (GEC 2025 abstract – poster presentation)
-
-**Conference abstract link:**  
-https://schedule.aps.org/gec/2025/events/DT4/1
-
----
-
-### BibTeX
-
-```bibtex
-@misc{LXCatImpactAnalysis2025,
-  title        = {Impact Analysis of LXCat Electron Collision Databases on Plasma Modeling},
-  author       = {Kalp Pandya, Khushi Shah, Nirmal Shah, Nakshi Shah, Bhaskar Chaudhury},
-  howpublished = {\url{https://github.com/USERNAME/LXCat-impact-analysis}},
-  note         = {Poster presented at the APS Global Engineering Conference (GEC) 2025},
-  year         = {2025},
-  url          = {https://schedule.aps.org/gec/2025/events/DT4/1}
-}
-
-
-<!-- ## License & Contribution
->>>>>>> Updated README file
 
 **Conference abstract link:**  
 https://schedule.aps.org/gec/2025/events/DT4/1
