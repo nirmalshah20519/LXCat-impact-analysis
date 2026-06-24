@@ -15,18 +15,6 @@ resolved species:
                  filtering, e.g. "co2", "carbon dioxide", "CO2") that
                  mapped to this root, semicolon-separated.
 
-IMPORTANT: This script does NOT change any resolution logic from the
-original pipeline. It only moves the "which root does this raw term
-resolve to" decision out to run once over the whole dataset, instead of
-redundantly inside every paper's folder loop. Because that decision is a
-pure function of (raw_term, name2res, form2res) with no per-paper state,
-running it once here and reusing the result in Script 2 reproduces the
-exact same counts as the original single-script pipeline.
-
-Usage:
-    python utils/01_build_species_catalog.py
-
-Edit the CONFIG section below before running.
 """
 
 import os

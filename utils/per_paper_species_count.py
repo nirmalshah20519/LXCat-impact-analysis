@@ -1,73 +1,3 @@
-"""
-Script 2: Per-paper species counts
-
-This reproduces Steps 1, 2, 4 and 5 of the original pipeline, but
-replaces the original Step 3 (re-resolving every raw term against the
-manually-resolved CSV inside each paper's loop) with a lookup against a
-species catalog (root_name + synonyms), normally the one already built by
-01_build_species_catalog.py.
-
-Because the catalog was built using the IDENTICAL filter_term() and
-resolve_term() logic as the original Step 3, "raw term -> root_name" is
-exactly the same mapping here as in the single-script version. Looking it
-up from the catalog instead of recomputing it changes nothing about which
-bucket a count lands in, so the per-paper final counts are UNCHANGED for
-the chemical-domain path.
-
----------------------------------------------------------------------------
-Domain selection (chemical vs non-chemical)
----------------------------------------------------------------------------
-When run from the command line (e.g. via main.py), domain choice is passed
-as CLI flags so the whole pipeline stays non-interactive:
-
-    --species-catalog-csv   path to the domain catalog CSV
-                             (chemical_species.csv from Script 1, or your own)
-    --is-chemical-domain    "true" or "false"
-
-  - is_chemical_domain=True  -> runs exactly the original CDE extraction +
-    filtering + catalog-lookup path (Path A below). This is untouched
-    from the previously verified version, so chemistry counts are
-    guaranteed identical to the original single-script pipeline.
-
-  - is_chemical_domain=False -> ChemDataExtractor is a chemistry NER tool
-    and is not meaningful for other domains, so CDE extraction is skipped
-    entirely. Instead, every paper's raw text is scanned directly with
-    case-insensitive WHOLE-WORD regex matching against every root_name
-    and synonym in the catalog (Path B below), and matches are aggregated
-    under root_name. This path is only used for non-chemical catalogs and
-    never touches/changes the chemical-domain counting logic.
-
-(If you want to be prompted interactively instead — e.g. running this
-script by hand — see get_catalog_and_domain() further below; it is not
-wired into the CLI entrypoint so unattended pipeline runs never block on
-stdin.)
-
-Outputs (per paper):
-    Chemical path (Path A) - same as original:
-        {file_id}_raw_chem_counts.txt
-        {file_id}_filtered_chem_counts.txt
-        {file_id}_final_chem_counts_dict.txt
-        {file_id}_cde_to_pubchem_mapping.txt
-
-    Non-chemical path (Path B):
-        {file_id}_final_chem_counts_dict.txt
-        {file_id}_term_match_mapping.txt
-
-Plus the original dataset-level outputs:
-    summary_csv          (filename, chemical_counts)
-    lxcat_out_csv         (final_lxcat_species.csv)   [chemical path only]
-
-Usage (CLI):
-    python utils/Step7_2_per_paper_species_counts.py \
-        --raw-txt-folder documents/txts \
-        --intermediate-folder documents/intermediate \
-        --species-catalog-csv results/data/01_chemical_species.csv \
-        --summary-csv documents/species_summary.csv \
-        --is-chemical-domain true \
-        --lxcat-csv documents/data/LXCat_species_mapping.csv \
-        --lxcat-out-dir results/data
-"""
-
 import os
 import re
 import ast
@@ -76,18 +6,10 @@ from collections import Counter, defaultdict
 from pathlib import Path
 import argparse
 import pandas as pd
-# NOTE: chemdataextractor is only imported lazily, inside the chemical-domain
-# path (see extract_and_count_from_bytes), so that this script can still run
-# in non-chemical mode on machines where chemdataextractor isn't installed.
 
+# NOTE: chemdataextractor is only imported lazily, inside the chemical-domain path, 
+# so that this script can still run in non-chemical mode on machines where chemdataextractor isn't installed.
 
-### ---- Domain / catalog selection (interactive — for manual/standalone use) ---- ###
-#
-# NOTE: these helpers are NOT called by the CLI entrypoint at the bottom of
-# this file (argparse path). When this script is run via main.py (subprocess,
-# unattended), domain choice comes from the --is-chemical-domain CLI flag
-# instead, so the pipeline never blocks on stdin. Use get_catalog_and_domain()
-# only if you want to run this script manually and be prompted interactively.
 
 def prompt_yes_no(prompt: str) -> bool:
     while True:
@@ -314,9 +236,6 @@ def load_species_catalog(catalog_csv: str):
 # meaningful here. Instead, every root_name and synonym in the catalog is
 # matched directly against each paper's raw text using a case-insensitive
 # WHOLE-WORD regex, and matches are aggregated under root_name.
-#
-# This path never runs for, and never affects, the chemical-domain path
-# above — it is a fully separate code path.
 
 def build_term_patterns(catalog_csv: str):
     """
@@ -342,10 +261,7 @@ def build_term_patterns(catalog_csv: str):
             if syn:
                 term_to_root[syn] = root
 
-    # Compile longer terms first so overlapping phrases don't get
-    # double-counted in a confusing order (e.g. "carbon dioxide" before
-    # "carbon"). This only affects iteration order, not whole-word
-    # correctness, since each pattern is matched independently.
+    # Compile longer terms first so overlapping phrases don't get double-counted in a confusing order (e.g. "carbon dioxide" before "carbon"). This only affects iteration order, not whole-word correctness, since each pattern is matched independently.
     terms_sorted = sorted(term_to_root.keys(), key=len, reverse=True)
 
     term_patterns = []
@@ -483,7 +399,7 @@ def map_and_aggregate_counts_in_folder(intermediate_root, term_to_root: dict):
         print(f"✅ Folder: {folder} | Final species: {len(final_counts)} | Saved → {output_dict}")
 
 
-### ---- Step 4: Species summary (identical to original) ---- ###
+### ---- Step 4: Species summary ---- ###
 
 def create_summary(intermediate_root, output_csv):
     rows = []
@@ -511,7 +427,7 @@ def create_summary(intermediate_root, output_csv):
     print(f"[summary] Saved: {output_csv}")
 
 
-### ---- Step 5: LxCat Species Filtering (identical to original) ---- ###
+### ---- Step 5: LxCat Species Filtering ---- ###
 
 def filter_lxcat_gases(df_path, lxcat_path, out_dir):
     df = pd.read_csv(df_path)
