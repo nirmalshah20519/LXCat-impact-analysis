@@ -35,11 +35,11 @@ conda install -n base -c conda-forge mamba
 
 ```bash
 mamba create -n lxcat_cde python=3.9
-mamba activate lxcat_cde
-cde data download
+conda activate lxcat_cde
 
 pip install chemdataextractor
 pip install -r requirements_cde.txt  
+cde data download
 ```
 
 ## 🔎 What This Pipeline Does
