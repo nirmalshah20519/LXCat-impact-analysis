@@ -3,8 +3,7 @@ Script 1: Build the master species catalog (chemical_species.csv)
 
 This runs extraction + filtering across the ENTIRE dataset (all papers),
 collects every distinct raw term that survives filtering, resolves each
-one through the manually-resolved CSV using the *exact same logic* as the
-original pipeline's mapping step (Step 3), and writes one row per unique
+one through the manually-resolved CSV and writes one row per unique
 resolved species:
 
     species_id, root_name, synonyms
@@ -42,13 +41,12 @@ def extract_terms_from_bytes(text_bytes: bytes):
     """
     Create a ChemDataExtractor Document from bytes and return the raw
     chemical entity mention strings (not yet counted/deduplicated).
-    Identical extraction call to the original pipeline.
     """
     doc = Document(text_bytes.decode("utf-8", errors="ignore"))
     return [c.text.strip() for c in doc.cems if getattr(c, "text", "").strip()]
 
 
-### ---- Step 2: Species filtering (identical to original) ---- ###
+### ---- Step 2: Species filtering ---- ###
 
 def is_reaction_like(term):
     return bool(re.search(r'\+|→|--+|=|•|⇒|←', term)) or len(term) > 15
@@ -98,11 +96,6 @@ def is_junk(term: str) -> bool:
 
 
 def filter_term(raw: str):
-    """
-    Apply the same per-term filter/normalize logic as the original
-    filter_all_raw_counts(), for a single raw term. Returns the
-    filtered/normalized term, or None if the term should be dropped.
-    """
     raw = raw.strip()
 
     if is_junk(raw) or is_reaction_like(raw) or is_irrelevant(raw):
@@ -153,8 +146,8 @@ def resolve_term(raw_filtered: str, name2res: dict, form2res: dict) -> str:
     """
     Given a term that has already passed filter_term() (so it is either
     a lowercase multi-word name, a lowercase single-word name, or a
-    normalized formula), resolve it to its final root name using the
-    exact same branching as the original map_and_aggregate_counts_in_folder().
+    normalized formula), resolve it to its final root name using the 
+    original map_and_aggregate_counts_in_folder().
 
     Returns the resolved/clean root name (falls back to the
     filtered/normalized term itself if no mapping is found).
