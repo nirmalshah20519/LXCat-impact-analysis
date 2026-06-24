@@ -34,10 +34,6 @@ conda install -n base -c conda-forge mamba
 ```
 
 ```bash
-conda install -n base -c conda-forge mamba
-```
-
-```bash
 mamba create -n lxcat_cde python=3.9
 mamba activate lxcat_cde
 cde data download
@@ -71,7 +67,7 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
     * **Non-Chemical Domains:** Catalog-driven entity extraction using configurable root-name and synonym mappings.
   * **LXCat Database Mention Extraction** through rule-based NLP.
   * **BOLSIG+ Solver Usage Counting** at the sentence level.
-  * **Country Fetchingn** from  structural JSON outputs.
+  * **Country Fetching** from  structural JSON outputs.
 
 5. **Final aggregation and results**
 
