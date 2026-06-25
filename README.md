@@ -1,6 +1,6 @@
 # Assessing the impact of Open Research Information Infrastructures using NLP driven full-text Scientometrics: A case study of the LXCat open-access platform
 
-A robust, open-source Natural Language Processing (NLP) pipeline designed to extract real-world usage patterns of species, databases, and solvers from the full-text content of scientific literature citing the foundational LXCat papers. This project moves beyond traditional bibliometrics to provide deep, content-specific scientometric insights, quantifying the scientific impact of the Low-Temperature Plasma (LTP) community's data-sharing efforts. The pipeline automatically converts scientific PDFs to structured data, enabling researchers to analyze large document collections and generate actionable insights and trends.
+A robust, open-source Natural Language Processing (NLP) pipeline designed to extract domain-specific entities, databases, tools, and usage patterns from the full-text content of scientific literature. Originally developed to assess the impact of the LXCat open-access platform within the Low-Temperature Plasma (LTP) community, the pipeline has been generalized to support both chemical and non-chemical domains through configurable entity catalogs and extraction workflows. By moving beyond traditional citation-based bibliometrics, the framework enables content-driven scientometric analysis, allowing researchers to quantify the scientific impact, adoption, and evolution of research infrastructures, datasets, databases, and domain-specific concepts across large scientific corpora.
 
 ## 🚀 Getting Started
 
@@ -37,7 +37,8 @@ conda install -n base -c conda-forge mamba
 mamba create -n lxcat_cde python=3.9
 conda activate lxcat_cde
 
-pip install -r requirements_cde.txt
+pip install chemdataextractor
+pip install -r requirements_cde.txt  
 cde data download
 ```
 
@@ -58,16 +59,15 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
 
    * Cleaned Markdown files are converted to plain text (`data/txts/`) for core NLP processing.
 
-3. **Information Extraction From Markdown**
+4. **Information Extraction From Text**
 
-* From the cleaned text files in `data/txts/`, the pipeline automatically extracts key scientific information:
-  * **Chemical Species Extraction** using ChemDataExtractor
-  * **LXCat Database Mention Extraction** through rule-based NLP
-  * **BOLSIG+ Solver Usage Counting** at the sentence level
-    
-4. **JSONs → Country fetching**
-
-   * The structural JSON outputs are parsed to reliably extract author affiliation and country information (using pycountry).
+* From the cleaned text files, the pipeline automatically extracts key scientific information:
+  * **Domain-Specific Entity Extraction**
+    * **Chemical Domains:** ChemDataExtractor-based entity recognition with synonym and abbreviation resolution.
+    * **Non-Chemical Domains:** Catalog-driven entity extraction using configurable root-name and synonym mappings.
+  * **LXCat Database Mention Extraction** through rule-based NLP.
+  * **BOLSIG+ Solver Usage Counting** at the sentence level.
+  * **Country Fetching** from  structural JSON outputs.
 
 5. **Final aggregation and results**
 
@@ -75,6 +75,31 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
    * A `results/plots/` folder contains several automatically generated plots (distribution of top chemical species, databases, countries etc.).
 
 ---
+
+## Domain Generalization
+
+* The species extraction framework supports two operating modes:
+
+  * **Chemical Domain Mode**
+
+    * Uses ChemDataExtractor (CDE) for context-aware chemical entity recognition.
+    * Resolves extracted entities using a configurable species catalog.
+    * Supports synonym and abbreviation mapping (e.g., CO₂ → carbon dioxide, N₂ → nitrogen).
+    * LXCat gas filtering for Low-Temperature Plasma studies.
+
+  * **Non-Chemical Domain Mode**
+
+    * Does not require ChemDataExtractor.
+    * Uses catalog-driven whole-word matching and synonym resolution.
+    * Supports extraction of domain-specific concepts, species, tools, technologies, or entities from any scientific discipline.
+    * Enables reuse of the pipeline across diverse scientometric studies with minimal configuration changes.
+
+* **Custom Domain Catalog Support**
+
+  * Users may provide their own domain catalog containing canonical entity names and associated synonyms/abbreviations.
+  * During execution, the pipeline can prompt the user to either use the default catalog or supply a custom catalog path.
+  * This allows the same framework to be applied to different research domains without modifying the extraction logic.
+
 
 ## ⚙️ How to Run
 
@@ -108,9 +133,21 @@ If you prefer to run steps individually, open main.py and call the specific modu
 
 ## 🛠️ Configuration & Customization
 
-* Paths: You can change input/output paths by editing the path variables in `main.py`.
+* **Paths:** Input and output directories can be customized by modifying the path variables in `main.py`.
 
-* Domain Adaptation: To adapt this pipeline for a different scientific domain (e.g., biology), you would primarily need to update the entity recognition and keyword lists used in the `utils/` modules (e.g., swapping ChemDataExtractor usage for a biology-specific entity recognizer).
+* **Domain Adaptation:** The pipeline supports both chemical and non-chemical domains.
+
+  * For **chemical domains**, ChemDataExtractor (CDE) is used for context-aware entity recognition and synonym resolution.
+  * For **non-chemical domains**, users can provide their own domain catalog containing canonical entity names and associated synonyms/abbreviations.
+
+* **Custom Domain Catalogs:** During execution, the species extraction stage can prompt the user to either:
+
+  * Use the default species catalog generated from the dataset, or
+  * Provide a custom domain catalog CSV.
+
+* **Entity Catalog Format:** Custom catalogs should contain canonical entity names (`root_name`) along with their associated synonyms, abbreviations, or alternate forms. This enables the same extraction and counting workflow to be reused across different scientific disciplines without modifying the core pipeline logic.
+
+---
 
 ## 📊 Results
 
