@@ -22,6 +22,8 @@ The pipeline requires two distinct environments due to dependencies (specificall
 conda create -n lxcat_main python=3.11
 conda activate lxcat_main
 
+cd LXCat-impact-analysis
+
 pip install -r requirements_main.txt
 ```
 
@@ -48,16 +50,16 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
 
 1. **PDF to MD & JSON Conversion**
 
-   * The pipeline begins by reading all input PDFs from `data/pdfs/` and convert each to a Markdown (`data/md/`) and a structured JSON (`data/jsons/`) representation. This dual-parsing approach ensures both clean text for NLP and structural metadata are preserved.
+   * The pipeline begins by reading all input PDFs from `documents/pdfs/` and convert each to a Markdown (`documents/mds/`) and a structured JSON (`documents/jsons/`) representation. This dual-parsing approach ensures both clean text for NLP and structural metadata are preserved.
 
 2. **Clean Markdown Files**
 
-   * Once PDFs are converted to Markdown, the pipeline cleans the files by removing tables, math expressions, extra whitespace, blank lines and formatting artifacts. This step produces standardized, noise-free Markdown files in `data/cleaned_mds/` that are ready for reliable NLP processing.
+   * Once PDFs are converted to Markdown, the pipeline cleans the files by removing tables, math expressions, extra whitespace, blank lines and formatting artifacts. This step produces standardized, noise-free Markdown files in `documents/cleaned_mds/` that are ready for reliable NLP processing.
 
 
 3. **MD to TXT Conversion**
 
-   * Cleaned Markdown files are converted to plain text (`data/txts/`) for core NLP processing.
+   * Cleaned Markdown files are converted to plain text (`documents/txts/`) for core NLP processing.
 
 4. **Information Extraction From Text**
 
@@ -105,7 +107,7 @@ This fully automated pipeline processes raw scientific PDFs through multiple sta
 
 1. Prepare input PDFs:
 
-* Place all input PDFs into the `data/pdfs/` directory.
+* Place all input PDFs into the `documents/pdfs/` directory.
 
 2. Run the Entire Pipeline:
 
@@ -123,9 +125,9 @@ If you prefer to run steps individually, open main.py and call the specific modu
 
 | **Directory / File**              | **Content Type**         | **Description** |
 |----------------------------------|---------------------------|-----------------|
-| `data/mds/`                        | *Raw Markdown*            | Markdown generated directly from PDFs. |
-| `data/jsons/`                     | *Structured JSON*         | JSON files preserving structural metadata. |
-| `data/txts/`                      | *Cleaned Plain Text*      | Final plain-text used for NLP extraction. |
+| `documents/mds/`                        | *Raw Markdown*            | Markdown generated directly from PDFs. |
+| `documents/jsons/`                     | *Structured JSON*         | JSON files preserving structural metadata. |
+| `documents/txts/`                      | *Cleaned Plain Text*      | Final plain-text used for NLP extraction. |
 | `results/data/results.xlsx`       | *Final Dataset*           | Consolidated spreadsheet containing all extracted entities (species, databases, BOLSIG+, countries). |
 | `results/plots/`                  | *Visual Analytics*        | Automatically generated distribution plots. |
 
@@ -163,7 +165,7 @@ The pipeline generates content-specific scientometric insights from LXCat-cited 
 
 ## 📖 How to Cite
 
-If you use this repository, methodology, extracted datasets, or results in your research, please cite the present GitHub project together with the abstract presented at the **APS Global Engineering Conference (GEC) 2025**.
+If you use this repository, methodology, extracted datasets, or results in your research, please cite the present GitHub project together with the **Arxiv paper**.
 
 This repository supports a research study on large-scale knowledge mining of LXCat-cited plasma literature and is intended to enable transparency, reproducibility, and extension of the presented analysis.
 
@@ -171,21 +173,17 @@ Once the full paper is officially published, this section will be updated with t
 
 ---
 
-### Temporary citation (GEC 2025 abstract – poster presentation)
-
-**Conference abstract link:**  
-https://schedule.aps.org/gec/2025/events/DT4/1
+### Temporary citation (Arxiv paper)
+https://arxiv.org/abs/2602.07664
 
 ---
 
 ### BibTeX
 
 ```bibtex
-@misc{LXCatImpactAnalysis2025,
-  title        = {Uncovering and Analyzing the Scientific Impact of LXCat in Low-Temperature Plasma (LTP) Research: An NLP and Data-Driven Approach},
-  author       = {Kalp Pandya, Khushi Shah, Nakshi Shah, Nirmal Shah, Bhaskar Chaudhury},
-  howpublished = {\url{https://github.com/USERNAME/LXCat-impact-analysis}},
-  note         = {Poster presented at the APS Global Engineering Conference (GEC) 2025},
-  year         = {2025},
-  url          = {https://schedule.aps.org/gec/2025/events/DT4/1}
+@article{pandya2026assessing,
+  title={Assessing the impact of Open Research Information Infrastructures using NLP driven full-text Scientometrics: A case study of the LXCat open-access platform},
+  author={Pandya, Kalp and Shah, Khushi and Shah, Nirmal and Shah, Nakshi and Chaudhury, Bhaskar},
+  journal={arXiv preprint arXiv:2602.07664},
+  year={2026}
 }
