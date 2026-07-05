@@ -3,19 +3,9 @@
 # ===============================
 
 import os
-
-MAX_CORES = max(1, (os.cpu_count() or 1) // 2)   # for half cores
-# MAX_CORES = 1                                  # for 1 core
-
-os.environ["OMP_NUM_THREADS"] = str(MAX_CORES)
-os.environ["MKL_NUM_THREADS"] = str(MAX_CORES)
-
-import torch
-torch.set_num_threads(MAX_CORES)
-torch.set_num_interop_threads(1)
-
 import json
 from pathlib import Path
+import torch
 
 from marker.converters.pdf import PdfConverter
 from marker.models import create_model_dict
@@ -79,6 +69,13 @@ def json_md_worker(pdf_path, json_path, md_path):
 # ======================================================================
 
 def convert_pdfs_serial(pdf_folder, json_folder, md_folder):
+    
+    # Check input folder
+    if not os.path.isdir(pdf_folder):
+        raise FileNotFoundError(
+            f"Input PDF folder not found: {pdf_folder}"
+        )
+    
     os.makedirs(json_folder, exist_ok=True)
     os.makedirs(md_folder, exist_ok=True)
 

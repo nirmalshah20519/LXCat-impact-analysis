@@ -95,6 +95,13 @@ def write_to_results_excel(sheet_name, dataframe, output_dir="results/data",
 
 def run_pipeline():
 
+    # Create common input and output directories
+    os.makedirs("documents", exist_ok=True)
+    os.makedirs("documents/data", exist_ok=True)
+    os.makedirs("results", exist_ok=True)
+    os.makedirs("results/data", exist_ok=True)
+    os.makedirs("results/plots", exist_ok=True)
+
     # Step 1: Convert PDF to MD and JSON
     convert_pdfs_serial(
         pdf_folder="documents/pdfs/",
