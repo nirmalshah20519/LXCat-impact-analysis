@@ -69,6 +69,13 @@ def json_md_worker(pdf_path, json_path, md_path):
 # ======================================================================
 
 def convert_pdfs_serial(pdf_folder, json_folder, md_folder):
+    
+    # Check input folder
+    if not os.path.isdir(pdf_folder):
+        raise FileNotFoundError(
+            f"Input PDF folder not found: {pdf_folder}"
+        )
+    
     os.makedirs(json_folder, exist_ok=True)
     os.makedirs(md_folder, exist_ok=True)
 
