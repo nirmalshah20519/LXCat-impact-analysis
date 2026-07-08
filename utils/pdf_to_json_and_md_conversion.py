@@ -14,6 +14,8 @@ import torch
 torch.set_num_threads(MAX_CORES)
 torch.set_num_interop_threads(1)
 
+print(f"Using {MAX_CORES} CPU thread(s) for PDF conversion.")
+
 import json
 from pathlib import Path
 
