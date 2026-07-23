@@ -3,9 +3,21 @@
 # ===============================
 
 import os
+
+MAX_CORES = max(1, (os.cpu_count() or 1) // 2)   # for half cores
+# MAX_CORES = 1                                  # for 1 core
+
+os.environ["OMP_NUM_THREADS"] = str(MAX_CORES)
+os.environ["MKL_NUM_THREADS"] = str(MAX_CORES)
+
+import torch
+torch.set_num_threads(MAX_CORES)
+torch.set_num_interop_threads(1)
+
+print(f"Using {MAX_CORES} CPU thread(s) for PDF conversion.")
+
 import json
 from pathlib import Path
-import torch
 
 from marker.converters.pdf import PdfConverter
 from marker.models import create_model_dict

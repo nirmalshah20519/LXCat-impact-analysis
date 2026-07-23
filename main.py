@@ -11,6 +11,50 @@ from utils.bolsig_extraction_pipeline import bolsig_processor
 from utils.country_fetching_pipeline import country_fetch_main
 from utils.data_visualisation import generate_all_plots
 
+def prompt_for_species_catalog():
+    """
+    Asks the user, in main.py's own terminal, whether they have their own
+    domain catalog CSV (root_name, synonyms columns) for the species
+    extraction step, or want the default chemical catalog built from the
+    dataset.
+ 
+    Returns:
+        (catalog_csv_path: str, is_chemical_domain: bool)
+        catalog_csv_path is "" if the user wants the default chemical
+        catalog built automatically (Step7_1) rather than supplying one.
+    """
+    print("\n=== Species Extraction: domain catalog ===")
+    while True:
+        ans = input("Do you have your own domain catalog CSV? [y/n]: ").strip().lower()
+        if ans in ("y", "yes"):
+            has_own = True
+            break
+        if ans in ("n", "no"):
+            has_own = False
+            break
+        print("Please answer 'y' or 'n'.")
+ 
+    if not has_own:
+        print("Using the default chemical species catalog (built from the dataset).")
+        return "", True
+ 
+    catalog_csv = input("Enter path to your domain catalog CSV: ").strip()
+    if not catalog_csv:
+        print("No path entered — falling back to the default chemical catalog.")
+        return "", True
+ 
+    while True:
+        ans = input("Is this a CHEMICAL domain catalog? [y/n]: ").strip().lower()
+        if ans in ("y", "yes"):
+            is_chemical = True
+            break
+        if ans in ("n", "no"):
+            is_chemical = False
+            break
+        print("Please answer 'y' or 'n'.")
+ 
+    return catalog_csv, is_chemical
+
 def write_to_results_excel(sheet_name, dataframe, output_dir="results/data",
                            keep_csv=True, csv_path=None):
     """
@@ -51,6 +95,13 @@ def write_to_results_excel(sheet_name, dataframe, output_dir="results/data",
 
 def run_pipeline():
 
+    # Create common input and output directories
+    os.makedirs("documents", exist_ok=True)
+    os.makedirs("documents/data", exist_ok=True)
+    os.makedirs("results", exist_ok=True)
+    os.makedirs("results/data", exist_ok=True)
+    os.makedirs("results/plots", exist_ok=True)
+
     # Step 1: Convert PDF to MD and JSON
     convert_pdfs_serial(
         pdf_folder="documents/pdfs/",
@@ -70,6 +121,7 @@ def run_pipeline():
     # Step 4: Database Extraction Pipeline
     db_processor(
         txt_input_dir="documents/txts/",
+        author_db_csv="documents/data/author_database.csv",
         output_csv="results/data/Database_counts.csv"
     )
 
@@ -85,13 +137,23 @@ def run_pipeline():
         output_csv="results/data/country_fetch_outputs.csv"
     )
 
-    # Step 7: Gas TM Pipeline (Python 3.9 env)
+    # Step 7: Species Extraction Pipeline (Python 3.9 'lxcat_cde' env, for ChemDataExtractor)
+    
+    catalog_csv, is_chemical_domain = prompt_for_species_catalog()
+ 
     print("\n\n=== Switching to python 3.9 Gas TM environment ===\n")
-
+ 
+    # Pass the prompt answers across the env boundary via environment
+    # variables, since call_species_extraction.py runs in a separate
+    # subprocess/conda env and can't share Python variables directly.
+    species_env = os.environ.copy()
+    species_env["SPECIES_CATALOG_CSV"] = catalog_csv
+    species_env["IS_CHEMICAL_DOMAIN"] = "true" if is_chemical_domain else "false"
+ 
     subprocess.run([
         "mamba", "run", "-n", "lxcat_cde", "python",
         "utils/call_species_extraction.py"
-    ], check=True)
+    ], check=True, env=species_env)
 
     # Remove intermediate folder
     intermediate_folder = "documents/intermediate/"
@@ -102,9 +164,9 @@ def run_pipeline():
     else:
         print("intermediate folder not found — skipping delete")
 
-    # Step 8: Store results
+    # Storing results
 
-    # 8.1: Store species extraction result
+    # Store species extraction result
     gas_csv = "results/data/final_lxcat_species.csv"
     gas_df = pd.read_csv(gas_csv)
     write_to_results_excel(
@@ -114,7 +176,7 @@ def run_pipeline():
         csv_path=gas_csv
     )
 
-    # 8.2: Store database extraction result
+    # Store database extraction result
     db_csv = "results/data/Database_counts.csv"
     db_df = pd.read_csv(db_csv)
     write_to_results_excel(
@@ -124,7 +186,7 @@ def run_pipeline():
         csv_path=db_csv
     )
 
-    # 8.3: Store bolsig+ extraction result
+    # Store bolsig+ extraction result
     bs_csv = "results/data/bolsig+_counts.csv"
     bs_df = pd.read_csv(bs_csv)
     write_to_results_excel(
@@ -134,7 +196,7 @@ def run_pipeline():
         csv_path=bs_csv
     )
 
-    # 8.4: Store country fetching result
+    # Store country fetching result
     ct_csv = "results/data/country_fetch_outputs.csv"
     ct_df = pd.read_csv(ct_csv)
     write_to_results_excel(
@@ -144,7 +206,7 @@ def run_pipeline():
         csv_path=ct_csv
     )
 
-    # Step 9: Create Visualisations
+    # Step 8: Create Visualisations
     print("\n=== Generating Visualisation Plots ===\n")
     generate_all_plots()
 

@@ -1,6 +1,5 @@
 import os
 import re
-# import matplotlib.pyplot as plt
 from collections import defaultdict
 import pandas as pd
 from collections import OrderedDict
@@ -140,7 +139,7 @@ def smart_tokenize(sentence, author_list):
 # ===================================================================
 #                          MAIN PROCESSOR
 # ===================================================================
-def db_processor(txt_input_dir, output_csv):
+def db_processor(txt_input_dir, author_db_csv, output_csv):
 
     if os.path.exists(output_csv):
         os.remove(output_csv)
@@ -148,20 +147,24 @@ def db_processor(txt_input_dir, output_csv):
 
     keywords = {'database', 'dataset', 'datasets', 'databases', 'data'}
 
-    known_databases = {
-        "anu", "biagi", "biagi-v7.1", "biagi-v8.9", "bordage", "bsr", "budapest", "cdap",
-        "ccc", "christophorou", "cop", "dutton", "emol-lehavre", "ethz", "flinders",
-        "hayashi", "heidelberg", "iaa", "ist-lisbon", "itikawa", "laporta", "laplace",
-        "morgan", "muroranit", "ngfsrdw", "phelps", "puech", "quantemol", "siglo",
-        "triniti", "unam", "ut", "viehland", "xjtuaetlab"
-    }
+    df_resources = pd.read_csv(author_db_csv)
 
-    author_list = [
-        "S. F. Biagi", "Marie-Claude Bordage", "Loucas G. Christophorou", "Y. Itikawa",
-        "Vincenzo Laporta", "W. L. Morgan", "A. V. Phelps", "L. A. Viehland",
-        "J. Dutton", "M. Hayashi"
-    ]
+    known_databases = set(
+        df_resources.iloc[:, 0]
+        .dropna()
+        .astype(str)
+        .str.strip()
+        .str.lower()
+        .tolist()
+    )
 
+    author_list = (
+        df_resources.iloc[:, 1]
+        .dropna()
+        .astype(str)
+        .str.strip()
+        .tolist()
+    )
     
     txt_files = sorted([f for f in os.listdir(txt_input_dir) if f.endswith('.txt')])
 
